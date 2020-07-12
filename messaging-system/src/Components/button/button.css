@@ -1,0 +1,25 @@
+.btnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    border-radius: 8px;
+    height: 48px;
+    width: 170px;
+    background-color: #C4826A;
+    border: none;
+    color: white;
+    font-size: 18px;
+    outline: none;
+}
+
+#btn:hover,
+#btn:focus,
+#btn:active {
+    transform: scale(1.1);
+}
