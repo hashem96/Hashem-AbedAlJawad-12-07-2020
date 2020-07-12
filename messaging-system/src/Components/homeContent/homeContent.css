@@ -15,23 +15,17 @@
     color: white;
 }
 
-#homeSecondHeader {
 
+#homeSecondHeader {
     padding-top: 30px;
-    font-family: Quicksand;
-    
 }
+
 
 #spanInSecondHeader {
-
     background-color: red;
-    font-family: Quicksand;
-
 }
 
-
 .buttonsContainer {
-
     display: flex;
     justify-content: center;
     align-items: center;

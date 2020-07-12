@@ -1,10 +1,10 @@
-@import url(https://fonts.googleapis.com/css?family=Oswald);
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand');
 
 * {
 
-  font-family: "Oswald";
+  font-family: "Quicksand";
 }
+
 w3
 .App {
   text-align: center;
