@@ -158,7 +158,7 @@ const SignupForm = () => {
 
                             {checkError ? (
                                 <Fragment>
-                                    <span id="errorSpan">
+                                    <span id="signUpErrorSpan">
                                         {error}
                                     </span>
                                 </Fragment>
