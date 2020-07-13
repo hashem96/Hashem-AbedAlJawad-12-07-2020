@@ -1,12 +1,14 @@
 import React from 'react'
+import ScreenContainer from '../Components/screenContainer'
+import DashboardOutline from '../Components/dashboardOutline'
 
 const Dashboard = () => {
     return (
-        <div>
+        <ScreenContainer>
 
-            Dashbooard 
-            
-        </div>
+            <DashboardOutline />
+
+        </ScreenContainer>
     )
 }
 

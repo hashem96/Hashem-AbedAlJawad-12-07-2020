@@ -5,7 +5,12 @@
   font-family: "Quicksand";
 }
 
-w3
+
+*:focus {
+  outline: 0 !important;
+}
+
+
 .App {
   text-align: center;
 }
@@ -14,4 +19,15 @@ w3
 #link {
 
   text-decoration: none;
+}
+
+::placeholder {
+
+  font-size: medium;
+}
+
+
+label {
+
+  color: gray;
 }

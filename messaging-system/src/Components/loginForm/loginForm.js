@@ -21,7 +21,7 @@ const LoginForm = () => {
         auth.signInWithEmailAndPassword(loginInputs.email, loginInputs.password).then((cred) => {
         //If the user exists , we store his id into localStorage variable
         localStorage.setItem('userid', cred.user.uid)
-
+ 
 
         //Redirect to Dashboard after login 
         window.location.href = '/dashboard';
