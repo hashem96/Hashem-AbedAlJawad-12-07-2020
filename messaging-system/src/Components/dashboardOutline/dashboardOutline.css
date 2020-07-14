@@ -35,14 +35,12 @@
     padding: 20px;
 }
 
-
 .popUpForm {
     display: flex;
     flex-direction: column;
     height: 300px;
     width: 100%;
 }
-
 
 .popUpDefaultInput {
     border: none;
@@ -89,3 +87,72 @@ input:disabled {
     height: 100%;
     border-radius: 20px 20px 0 0;
 }
+
+#emailsSpan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    font-size: 25px;
+    color: gray;
+}
+
+.emailsHeaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: gray;
+    width: 90%;
+    margin-top: 30px;
+    margin-left: 10px;
+    color: white;
+    height: 30px;
+    box-shadow: 0px 5px 5px #888888;
+}
+
+.emailHeaders {
+    width: 33.3%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+}
+
+.emailListContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: bisque;
+    width: 90%;
+    margin-top: 30px;
+    margin-left: 10px;
+    height: 50px;
+    box-shadow: 0px 5px 5px #888888;
+}
+
+.emailData {
+    width: 33.3%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+}
+
+.popup-content {
+    width: 300px !important;
+    height: 300px !important;
+    border-radius: 10px !important;
+    background: white !important;
+}
+
+.content {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 20px;
+}
+
+
