@@ -1,6 +1,6 @@
-.composeButtonContainer {
+.topButtonsContainer {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     padding-top: 20px;
 }
@@ -12,6 +12,17 @@
     border-radius: 8px;
     margin-left: 10px;
     background-color: bisque;
+}
+
+.logOutButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background-color: grey;
+    width: 100px;
+    height: 25px;
+    margin-right: 10px;
 }
 
 .dashboardHeaderContainer {
@@ -31,7 +42,7 @@
     position: absolute;
     border-radius: 20px 20px 0 0;
     z-index: 9;
-    background-color: rgba(0, 0, 0, .1);
+    background-color: whitesmoke;
     padding: 20px;
 }
 
@@ -97,47 +108,37 @@ input:disabled {
     color: gray;
 }
 
+.emailsTable {
+    width: 88%;
+    margin: 6%;
+}
+
 .emailsHeaderContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background-color: gray;
-    width: 90%;
-    margin-top: 30px;
-    margin-left: 10px;
+    text-align: center;
+    background-color: grey;
+    height: 10vh;
     color: white;
-    height: 30px;
-    box-shadow: 0px 5px 5px #888888;
+    font-size: 16px;
 }
 
 .emailHeaders {
-    width: 33.3%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    list-style: none;
+    margin-bottom: 10px;
+    width: 25%;
+    border: solid white 2px;
 }
 
 .emailListContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
+    text-align: center;
     background-color: bisque;
-    width: 90%;
-    margin-top: 30px;
-    margin-left: 10px;
-    height: 50px;
-    box-shadow: 0px 5px 5px #888888;
+    height: 10vh;
+    color:black;
+    font-size: 14px;
 }
 
 .emailData {
-    width: 33.3%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    list-style: none;
+    margin-bottom: 10px;
+    width: 25%;
+    border: solid white 2px;
 }
 
 .popup-content {
@@ -148,11 +149,8 @@ input:disabled {
 }
 
 .content {
-
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding-top: 20px;
 }
-
-

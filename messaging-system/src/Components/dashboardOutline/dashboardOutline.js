@@ -8,6 +8,7 @@ import Popup from "reactjs-popup";
 
 
 const DashboardOutline = () => {
+
     const alert = useAlert();
     const [userInfo, setUserInfo] = useState({})
     const [showComposePopUp, setShowComposePopUp] = useState(false)
@@ -25,10 +26,17 @@ const DashboardOutline = () => {
     })
 
 
+
+
+
     useEffect(() => {
+
+
+        //Check if the user is logged in or not
 
         //get data of currently logged in user
         auth.onAuthStateChanged(async user => {
+
             if (user) {
                 const userData = await db.collection('users').doc(user.uid).get()
                 setUserInfo(userData.data())
@@ -63,6 +71,7 @@ const DashboardOutline = () => {
                     })
 
             }
+
 
         })
 
@@ -136,17 +145,28 @@ const DashboardOutline = () => {
     }
 
 
+    const handleLogout = () => {
+        // remove localstored userid
+        localStorage.removeItem('userid');
+        auth.signOut();
+        window.location.href = "/login"
+    }
+
+
 
     return (
         <div>
 
             {/* <!-- Compose Button which is connected to popup onClick --> */}
 
-            <div className="composeButtonContainer">
+            <div className="topButtonsContainer">
 
 
 
                 <button className="composeButton fas fa-edit" onClick={() => setShowComposePopUp(true)}></button>
+
+                <MDBIcon icon="sign-out-alt" className="logOutButton text-light" onClick={handleLogout} />
+
 
 
             </div>
@@ -160,20 +180,6 @@ const DashboardOutline = () => {
 
 
 
-            {/* <!-- Headers of the table --> */}
-
-
-            <ul className="emailsHeaderContainer">
-
-                <li className="emailHeaders">From</li>
-                <li className="emailHeaders">Subject</li>
-                <li className="emailHeaders">Date</li>
-                <li className="emailHeaders"></li>
-
-
-
-
-            </ul>
 
             {/* <!-- First view of the dashboard when the user has emails realted to his email --> */}
 
@@ -182,51 +188,70 @@ const DashboardOutline = () => {
 
                 <Fragment>
 
-                    {userEmails.map((userEmail) => (
-                        <ul className="emailListContainer">
-                            <li className="emailData" id={userEmail.id} onClick={handleClick} >{userEmail.data().from} </li>
-                            <li className="emailData" id={userEmail.id} onClick={handleClick}>{userEmail.data().subject}</li>
-                            <li className="emailData" id={userEmail.id} onClick={handleClick}>{userEmail.data().creationDate} {userEmail.data().creationTime}</li>
-                            {emailPopUp.status && emailPopUp.id === userEmail.id ? (
+                    {/* <!-- Headers of the table --> */}
 
-                                <Fragment>
+                    < table className="emailsTable">
+                        <tr className="emailsHeaderContainer">
 
-                                    <Popup
+                            <th className="emailHeaders">From</th>
+                            <th className="emailHeaders">Subject</th>
+                            <th className="emailHeaders">Date</th>
+                            <th className="emailHeaders"></th>
 
-                                        open={true}
-                                        modal
-                                        position="left top"
-                                        closeOnDocumentClick>
-                                        {(close) => (
-                                            <div className="container">
-                                                <a className="close"
-                                                    onClick={() => {
-                                                        close();
-                                                    }}
-                                                > X </a>
 
-                                                <div className="content">
 
-                                                    {userEmail.data().message}
 
+                        </tr>
+
+
+
+
+                        {userEmails.map((userEmail) => (
+                            <tr className="emailListContainer">
+                                <td className="emailData" id={userEmail.id} onClick={handleClick} >{userEmail.data().from} </td>
+                                <td className="emailData" id={userEmail.id} onClick={handleClick}>{userEmail.data().subject}</td>
+                                <td className="emailData" id={userEmail.id} onClick={handleClick}>{userEmail.data().creationDate} {userEmail.data().creationTime}</td>
+                                <td className="emailData"><MDBIcon id={userEmail.id} icon="trash" className="text-secondary" onClick={deleteEmail} /></td>
+
+                                {emailPopUp.status && emailPopUp.id === userEmail.id ? (
+
+                                    <Fragment>
+
+                                        <Popup
+                                            open={true}
+                                            modal
+                                            position="left top"
+                                            closeOnDocumentClick>
+                                            {(close) => (
+                                                <div className="container">
+                                                    <a className="close"
+                                                        onClick={() => {
+                                                            close();
+                                                        }}
+                                                    > X </a>
+
+                                                    <div className="content">
+
+                                                        {userEmail.data().message}
+
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
+                                            )}
 
-                                    </Popup>
+                                        </Popup>
 
-                                </Fragment>
+                                    </Fragment>
 
-                            ) : (
-                                    <Fragment> </Fragment>
-                                )}
+                                ) : (
+                                        <Fragment> </Fragment>
+                                    )}
 
-                            <li className="emailData"><MDBIcon id={userEmail.id} icon="trash" className="text-secondary" onClick={deleteEmail} /></li>
 
-                        </ul>
-                    ))}
-
+                            </tr>
+                        ))}
+                    </table>
                 </Fragment>
+
 
 
             ) : (
@@ -245,48 +270,49 @@ const DashboardOutline = () => {
 
             {/* <!-- The popup will include form to email people  --> */}
 
-            {showComposePopUp ? (
+            {
+                showComposePopUp ? (
 
-                <Fragment>
+                    <Fragment>
 
-                    <div class="checkingPopUp popupFormContainer">
+                        <div class="checkingPopUp popupFormContainer">
 
-                        <div className="popUpFormControlButtonsContainer">
+                            <div className="popUpFormControlButtonsContainer">
 
-                            < MDBIcon icon="times" className="text-secondary pl-3" onClick={() => setShowComposePopUp(false)} />
+                                < MDBIcon icon="times" className="text-secondary pl-3" onClick={() => setShowComposePopUp(false)} />
+
+                            </div>
+
+                            <form class="popUpForm" onSubmit={handleSubmit}>
+                                <label> From
+                                <input className="popUpDefaultInput" id="from" type="text" defaultValue={userInfo.email} disabled />
+                                </label>
+
+                                <input class="popUpInputs" type="text" id='subject' placeholder="subject" onChange={handleChange} required />
+
+                                <input class="popUpInputs" type="email" id='to' placeholder="To" onChange={handleChange} required />
+
+                                <textarea class="popUpArea" type="text" id='message' placeholder="message" rows="4" cols="50"
+                                    onChange={handleChange} required />
+
+                                <Button text="Send" type="submit" color="#0069D9"></Button>
+
+
+                            </form>
+
 
                         </div>
 
-                        <form class="popUpForm" onSubmit={handleSubmit}>
-                            <label> From
-                                <input className="popUpDefaultInput" id="from" type="text" defaultValue={userInfo.email} disabled />
-                            </label>
 
-                            <input class="popUpInputs" type="text" id='subject' placeholder="subject" onChange={handleChange} required />
+                    </Fragment>
 
-                            <input class="popUpInputs" type="email" id='to' placeholder="To" onChange={handleChange} required />
+                ) : (
 
-                            <textarea class="popUpArea" type="text" id='message' placeholder="message" rows="4" cols="50"
-                                onChange={handleChange} required />
+                        //PopUp Closing View
 
-                            <Button text="Send" type="submit" color="#0069D9"></Button>
+                        <Fragment> </Fragment>
 
-
-                        </form>
-
-
-                    </div>
-
-
-                </Fragment>
-
-            ) : (
-
-                    //PopUp Closing View
-
-                    <Fragment> </Fragment>
-
-                )
+                    )
             }
 
 

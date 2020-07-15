@@ -1,4 +1,4 @@
-import React, { useState , Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
 import './loginForm.css'
 import { auth } from '../../Firebase/firebase'
 
@@ -19,15 +19,15 @@ const LoginForm = () => {
         //check if the user exist in the auth of firebase
 
         auth.signInWithEmailAndPassword(loginInputs.email, loginInputs.password).then((cred) => {
-        //If the user exists , we store his id into localStorage variable
-        localStorage.setItem('userid', cred.user.uid)
- 
-
-        //Redirect to Dashboard after login 
-        window.location.href = '/dashboard';
+            //If the user exists , we store his id into localStorage variable
+            localStorage.setItem('userid', cred.user.uid)
 
 
-        // If the user does not exist , we handle the error by showing the corresponding message from firebase
+            //Redirect to Dashboard after login 
+            window.location.href = '/dashboard';
+
+
+            // If the user does not exist , we handle the error by showing the corresponding message from firebase
         }).catch(function (err) {
             setCheckError(true)
             setError(err.message);
@@ -98,6 +98,19 @@ const LoginForm = () => {
                                 <button class="btn btn-primary btn-block py-2">
                                     <span class="font-weight-bold">Login</span>
                                 </button>
+                            </div>
+
+                            {/* <!-- Divider Text --> */}
+                            <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                                <div class="border-bottom w-100 ml-5"></div>
+                                <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
+                                <div class="border-bottom w-100 mr-5"></div>
+                            </div>
+
+
+                            {/* <!-- Want to create new account --> */}
+                            <div class="text-center w-100">
+                                <p class="text-muted font-weight-bold">Want to create a new account? <a href="/signup" class="text-primary ml-2">SignUp</a></p>
                             </div>
 
                         </div>

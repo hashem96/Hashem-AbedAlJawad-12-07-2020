@@ -1,27 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from '../../Screens/Home'
-import Signup  from '../../Screens/SignUp'
+import Signup from '../../Screens/SignUp'
 import Login from '../../Screens/Login'
 import Dashboard from '../../Screens/Dashboard'
+import NotFound from '../../Screens/NotFound'
+import UserRoute from '../../Routes/UserRoute'
+import PublicRoute from '../../Routes/PublicRoute';
 
 function App() {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('userid'))
   return (
 
     <Router>
 
       <Switch>
 
-      <Route path='/' exact component={Home} />
+        {/* <!-- Public routes (Home , Register , Login) which do not need authentication--> */}
 
-      <Route path='/signup' exact component={Signup} />
+        <PublicRoute path='/' exact component={Home} />
 
-      <Route path='/login' exact component={Login} />
+        <PublicRoute path='/signup' exact component={Signup} />
 
-      <Route path='/dashboard' exact component={Dashboard} />
+        <PublicRoute path='/login' exact component={Login} />
 
-      
+
+        {/* <!-- User route.Thus we need to check the authentication of the user --> */}
+
+        <UserRoute path='/dashboard' exact component={Dashboard} isAuthenticated={isAuthenticated} />
+
+
+        {/* <!-- In case of incorrect path by the user , we redirect him to notfound page --> */}
+
+        <Route path='*' component={NotFound} />
+
+
       </Switch>
 
 

@@ -31,3 +31,9 @@ label {
 
   color: gray;
 }
+
+
+a:hover {
+
+  text-decoration: none;
+}
