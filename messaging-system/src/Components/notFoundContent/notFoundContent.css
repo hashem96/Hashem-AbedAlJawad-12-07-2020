@@ -1,6 +1,5 @@
 .notFoundcontainer {
     background-color: #95c2de;
-    width: 100vw;
     height: 100vh;
 }
 
@@ -24,7 +23,7 @@
     position: absolute;
     font-size: 8.5rem;
     left: 42%;
-    top: 15%;
+    top: 18%;
     color: #ffffff;
 }
 
@@ -46,8 +45,54 @@
 }
 
 .homeButton {
-
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #95c2de;
+    width: 100%;
+}
+
+@media only screen and (max-width: 414px) {
+    .mainbox {
+        background-color: #95c2de;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .err {
+        color: #ffffff;
+        font-size: 11rem;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+    }
+    .far {
+        position: absolute;
+        font-size: 8.5rem;
+        left: 30%;
+        top: 10%;
+        color: #ffffff;
+    }
+    .err2 {
+        color: #ffffff;
+        font-size: 11rem;
+        position: absolute;
+        left: 68%;
+        top: 0%;
+    }
+    .msg {
+        text-align: center;
+        font-size: 1.6rem;
+        position: absolute;
+        left: 16%;
+        top: 35%;
+        width: 75%;
+    }
+    .homeButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #95c2de;
+        width: 100%;
+    }
 }
