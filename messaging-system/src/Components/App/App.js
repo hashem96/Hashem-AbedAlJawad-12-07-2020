@@ -20,11 +20,11 @@ function App() {
 
         {/* <!-- Public routes (Home , Register , Login) which do not need authentication--> */}
 
-        <PublicRoute path='/' exact component={Home} />
+        <PublicRoute path='/' exact component={Home} isAuthenticated={isAuthenticated} />
 
-        <PublicRoute path='/signup' exact component={Signup} />
+        <PublicRoute path='/signup' exact component={Signup} isAuthenticated={isAuthenticated} />
 
-        <PublicRoute path='/login' exact component={Login} />
+        <PublicRoute path='/login' exact component={Login} isAuthenticated={isAuthenticated} />
 
 
         {/* <!-- User route.Thus we need to check the authentication of the user --> */}

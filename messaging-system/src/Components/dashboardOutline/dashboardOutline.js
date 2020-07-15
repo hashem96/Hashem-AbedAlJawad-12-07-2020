@@ -155,8 +155,9 @@ const DashboardOutline = () => {
     const handleLogout = () => {
         // remove localstored userid
         localStorage.removeItem('userid');
+        // redirect user to landing page after logut with removing his authentication from firebase
         auth.signOut();
-        window.location.href = "/login"
+        window.location.href = "/"
     }
 
 
@@ -167,14 +168,9 @@ const DashboardOutline = () => {
             {/* <!-- Compose Button which is connected to popup onClick --> */}
 
             <div className="topButtonsContainer">
-
-
-
                 <button className="composeButton fas fa-edit" onClick={() => setShowComposePopUp(true)}></button>
 
                 <MDBIcon icon="sign-out-alt" className="logOutButton text-light" onClick={handleLogout} />
-
-
 
             </div>
 
@@ -186,9 +182,9 @@ const DashboardOutline = () => {
             </div>
 
 
-
-
             {/* <!-- First view of the dashboard when the user has emails realted to his email --> */}
+
+            {/* <!-- Loading spinner will appear until the API call to firestore finishes --> */}
 
             {loading ? (
 
@@ -207,14 +203,7 @@ const DashboardOutline = () => {
                                     <th className="emailHeaders">Subject</th>
                                     <th className="emailHeaders">Date</th>
                                     <th className="emailHeaders"></th>
-
-
-
-
                                 </tr>
-
-
-
 
                                 {userEmails.map((userEmail) => (
                                     <tr className="emailListContainer">
@@ -263,7 +252,6 @@ const DashboardOutline = () => {
                         </Fragment>
 
 
-
                     ) : (
 
                             <Fragment>
@@ -273,15 +261,12 @@ const DashboardOutline = () => {
                                 <span id="emailsSpan">You dont have an email at your inbox </span>
                             </Fragment>
 
-
                         )
-
 
                     }
 
                 </Fragment>
             ) : (
-
                     <div className="spinnerContainer">
 
                         <ReactBootStrap.Spinner animation="grow" />
