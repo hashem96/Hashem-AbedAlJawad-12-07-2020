@@ -5,11 +5,13 @@ import { MDBIcon } from "mdbreact"
 import Button from '../button'
 import { useAlert } from 'react-alert'
 import Popup from "reactjs-popup";
+import * as ReactBootStrap from 'react-bootstrap'
 
 
 const DashboardOutline = () => {
 
     const alert = useAlert();
+    const [loading, setLoading] = useState(false)
     const [userInfo, setUserInfo] = useState({})
     const [showComposePopUp, setShowComposePopUp] = useState(false)
     const [checkUserEmails, setCheckUserEmails] = useState()
@@ -51,12 +53,14 @@ const DashboardOutline = () => {
                             //change state to false - show no emails screen
 
                             setCheckUserEmails(false);
+                            setLoading(true)
 
                             // If thr user has emails another view will appear 
 
                         } else {
 
                             setCheckUserEmails(true);
+                            setLoading(true)
 
                             const emailsInfo = snapShot.docs.map(email => {
 
@@ -119,7 +123,7 @@ const DashboardOutline = () => {
         //Showing alert message after successful adding all the email details to firebase
 
         alert.show('Your message has been sent successfully', {
-            timeout: 4000,
+            timeout: 3000,
             type: 'success'
         })
 
@@ -132,9 +136,12 @@ const DashboardOutline = () => {
 
     const deleteEmail = (e) => {
 
-        console.log(e.target.id)
-
         db.collection('messages').doc(e.target.id).delete();
+
+        alert.show('Your message has been deleted successfully', {
+            timeout: 3000,
+            type: 'success'
+        })
 
     }
 
@@ -183,88 +190,105 @@ const DashboardOutline = () => {
 
             {/* <!-- First view of the dashboard when the user has emails realted to his email --> */}
 
-
-            {checkUserEmails ? (
+            {loading ? (
 
                 <Fragment>
 
-                    {/* <!-- Headers of the table --> */}
+                    {checkUserEmails ? (
 
-                    < table className="emailsTable">
-                        <tr className="emailsHeaderContainer">
+                        <Fragment>
 
-                            <th className="emailHeaders">From</th>
-                            <th className="emailHeaders">Subject</th>
-                            <th className="emailHeaders">Date</th>
-                            <th className="emailHeaders"></th>
+                            {/* <!-- Headers of the table --> */}
 
+                            < table className="emailsTable">
+                                <tr className="emailsHeaderContainer">
 
-
-
-                        </tr>
-
+                                    <th className="emailHeaders">From</th>
+                                    <th className="emailHeaders">Subject</th>
+                                    <th className="emailHeaders">Date</th>
+                                    <th className="emailHeaders"></th>
 
 
 
-                        {userEmails.map((userEmail) => (
-                            <tr className="emailListContainer">
-                                <td className="emailData" id={userEmail.id} onClick={handleClick} >{userEmail.data().from} </td>
-                                <td className="emailData" id={userEmail.id} onClick={handleClick}>{userEmail.data().subject}</td>
-                                <td className="emailData" id={userEmail.id} onClick={handleClick}>{userEmail.data().creationDate} {userEmail.data().creationTime}</td>
-                                <td className="emailData"><MDBIcon id={userEmail.id} icon="trash" className="text-secondary" onClick={deleteEmail} /></td>
 
-                                {emailPopUp.status && emailPopUp.id === userEmail.id ? (
+                                </tr>
 
-                                    <Fragment>
 
-                                        <Popup
-                                            open={true}
-                                            modal
-                                            position="left top"
-                                            closeOnDocumentClick>
-                                            {(close) => (
-                                                <div className="container">
-                                                    <a className="close"
-                                                        onClick={() => {
-                                                            close();
-                                                        }}
-                                                    > X </a>
 
-                                                    <div className="content">
 
-                                                        {userEmail.data().message}
+                                {userEmails.map((userEmail) => (
+                                    <tr className="emailListContainer">
+                                        <td className="emailData" id={userEmail.id} onClick={handleClick} >{userEmail.data().from} </td>
+                                        <td className="emailData" id={userEmail.id} onClick={handleClick}>{userEmail.data().subject}</td>
+                                        <td className="emailData" id={userEmail.id} onClick={handleClick}>{userEmail.data().creationDate} {userEmail.data().creationTime}</td>
+                                        <td className="emailData"><MDBIcon id={userEmail.id} icon="trash" className="text-secondary" onClick={deleteEmail} /></td>
 
-                                                    </div>
-                                                </div>
+                                        {emailPopUp.status && emailPopUp.id === userEmail.id ? (
+
+                                            <Fragment>
+
+                                                <Popup
+                                                    open={true}
+                                                    modal
+                                                    position="left top"
+                                                    closeOnDocumentClick>
+                                                    {(close) => (
+                                                        <div className="container">
+                                                            <a className="close"
+                                                                onClick={() => {
+                                                                    close();
+                                                                }}
+                                                            > X </a>
+
+                                                            <div className="content">
+
+                                                                {userEmail.data().message}
+
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                </Popup>
+
+                                            </Fragment>
+
+                                        ) : (
+                                                <Fragment> </Fragment>
                                             )}
 
-                                        </Popup>
 
-                                    </Fragment>
-
-                                ) : (
-                                        <Fragment> </Fragment>
-                                    )}
+                                    </tr>
+                                ))}
+                            </table>
+                        </Fragment>
 
 
-                            </tr>
-                        ))}
-                    </table>
+
+                    ) : (
+
+                            <Fragment>
+
+                                {/* <!-- Second view of the dashboard when the user does not have any email --> */}
+
+                                <span id="emailsSpan">You dont have an email at your inbox </span>
+                            </Fragment>
+
+
+                        )
+
+
+                    }
+
                 </Fragment>
-
-
-
             ) : (
 
-                    <Fragment>
+                    <div className="spinnerContainer">
 
-                        {/* <!-- Second view of the dashboard when the user does not have any email --> */}
+                        <ReactBootStrap.Spinner animation="grow" />
 
-                        <span id="emailsSpan">You dont have an email at your inbox </span>
-                    </Fragment>
-
-
+                    </div>
                 )
+
             }
             {/* <!-- In case of clicking compose , a popup will appear on right bottom side of the screen (Opening View)--> */}
 

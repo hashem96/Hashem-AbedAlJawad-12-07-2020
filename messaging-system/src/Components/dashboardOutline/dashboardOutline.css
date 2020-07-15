@@ -154,3 +154,12 @@ input:disabled {
     align-items: center;
     padding-top: 20px;
 }
+
+
+.spinnerContainer {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
